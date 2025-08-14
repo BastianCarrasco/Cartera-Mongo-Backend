@@ -1,4 +1,4 @@
-basePath: /
+basePath: /  // Ya corregido, mantener así
 definitions:
   models.Academic:
     properties:
@@ -58,7 +58,7 @@ definitions:
       nombre:
         type: string
     type: object
-host: localhost:8080
+host: cartera-mongo-backend-production.up.railway.app
 info:
   contact:
     email: support@swagger.io
@@ -220,5 +220,10 @@ paths:
       tags:
       - Projects
 schemes:
-- http
+- https
+- //
+- ¡IMPORTANTE!
+- Railway
+- usa
+- HTTPS
 swagger: "2.0"

@@ -28,9 +28,9 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:8080
-// @BasePath /
-// @schemes http
+// @host cartera-mongo-backend-production.up.railway.app
+// @BasePath /  // Ya corregido, mantener así
+// @schemes https // ¡IMPORTANTE! Railway usa HTTPS
 func main() {
 	err := godotenv.Load()
 	if err != nil {

@@ -1,6 +1,11 @@
 {
     "schemes": [
-        "http"
+        "https",
+        "//",
+        "¡IMPORTANTE!",
+        "Railway",
+        "usa",
+        "HTTPS"
     ],
     "swagger": "2.0",
     "info": {
@@ -18,8 +23,8 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:8080",
-    "basePath": "/",
+    "host": "cartera-mongo-backend-production.up.railway.app",
+    "basePath": "/  // Ya corregido, mantener así",
     "paths": {
         "/funciones/data": {
             "get": {

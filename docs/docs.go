@@ -341,9 +341,9 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8080",
-	BasePath:         "/",
-	Schemes:          []string{"http"},
+	Host:             "cartera-mongo-backend-production.up.railway.app",
+	BasePath:         "/  // Ya corregido, mantener así",
+	Schemes:          []string{"https", "//", "¡IMPORTANTE!", "Railway", "usa", "HTTPS"},
 	Title:            "Cartera-Mongo-Backend Project API",
 	Description:      "This is a sample server for a Project API with Go and MongoDB, named Cartera-Mongo-Backend.",
 	InfoInstanceName: "swagger",
