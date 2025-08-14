@@ -1,0 +1,36 @@
+# swagger.yaml
+# Este es un archivo de especificación OpenAPI (Swagger 2.0)
+# que go-swagger usará como base.
+
+swagger: "2.0" # Define que es una especificación Swagger 2.0
+info:
+  title: Cartera-Mongo-Backend Project API # Título de tu API
+  version: 1.0 # Versión de tu API
+  description: This is a sample server for a Project API with Go and MongoDB, named Cartera-Mongo-Backend.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: API Support
+    url: http://www.swagger.io/support
+    email: support@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# Aquí defines el host de tu API.
+# Este será el host que Swagger UI usará para enviar las peticiones.
+# Lo hardcodeamos aquí para evitar los problemas de sustitución de variables.
+host: cartera-mongo-backend-production.up.railway.app # <--- ¡IMPORTANTE!
+
+# La ruta base de tu API (ej: /api/v1). En tu caso, es la raíz.
+basePath: /
+
+# Esquemas de protocolo que soporta tu API.
+# ¡IMPORTANTE! Railway usa HTTPS.
+schemes:
+  - https
+
+# Las secciones 'paths' y 'definitions' se dejarán vacías o mínimas aquí,
+# ya que go-swagger las llenará escaneando tus anotaciones en los handlers
+# y tus modelos Go.
+paths: {}
+definitions: {}
