@@ -1,0 +1,49 @@
+# Dockerfile
+
+# Stage 1: Build the Go application
+FROM golang:1.22-alpine AS builder
+
+WORKDIR /app
+
+# Instala Git para go mod download si necesitas módulos privados
+RUN apk add --no-cache git
+
+# Copy go.mod and go.sum first to leverage Docker caching
+COPY go.mod .
+COPY go.sum .
+
+# Download Go modules
+RUN go mod download
+
+# Install swag cli tool
+# Esto se instala en GOPATH/bin, que ya está en el PATH del contenedor
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+
+# Copy the rest of the application source code
+COPY . .
+
+# Generate Swagger docs and build the Go application
+# Asegúrate de que este comando coincide con tu Build Command en Railway si no usas Railway's buildpacks
+RUN swag init && go build -o server .
+
+# Stage 2: Create the final lean image
+FROM alpine:latest
+
+# Set timezone (optional, but good practice)
+RUN apk add --no-cache tzdata
+ENV TZ America/Santiago # O tu zona horaria
+
+WORKDIR /app
+
+# Copy the built executable from the builder stage
+COPY --from=builder /app/server .
+
+# Copy the Swagger UI files (generated in the builder stage)
+# Esto es esencial para que Swagger UI funcione en el navegador
+COPY --from=builder /app/docs ./docs
+
+# Expose the port your application listens on
+EXPOSE 8080
+
+# Command to run the application
+CMD ["./server"]
