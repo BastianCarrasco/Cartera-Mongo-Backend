@@ -5,45 +5,45 @@ FROM golang:1.22-alpine AS builder
 
 WORKDIR /app
 
-# Instala Git para go mod download si necesitas módulos privados
+# Instala Git para go mod download si necesitas módulos privados (aunque Railway suele tenerlo)
 RUN apk add --no-cache git
 
-# Copy go.mod and go.sum first to leverage Docker caching
+# Copia go.mod y go.sum primero para aprovechar el cache de Docker
 COPY go.mod .
 COPY go.sum .
 
-# Download Go modules
+# Descarga los módulos de Go
 RUN go mod download
 
-# Install swag cli tool
+# Instala la herramienta swag CLI
 # Esto se instala en GOPATH/bin, que ya está en el PATH del contenedor
 RUN go install github.com/swaggo/swag/cmd/swag@latest
 
-# Copy the rest of the application source code
+# Copia el resto del código fuente de la aplicación
 COPY . .
 
-# Generate Swagger docs and build the Go application
-# Asegúrate de que este comando coincide con tu Build Command en Railway si no usas Railway's buildpacks
+# Genera los docs de Swagger y construye la aplicación Go en la MISMA capa
+# Aquí está la corrección: swag init Y go build en la misma línea
 RUN swag init && go build -o server .
 
 # Stage 2: Create the final lean image
 FROM alpine:latest
 
-# Set timezone (optional, but good practice)
+# Set timezone (opcional, pero buena práctica)
 RUN apk add --no-cache tzdata
 ENV TZ America/Santiago # O tu zona horaria
 
 WORKDIR /app
 
-# Copy the built executable from the builder stage
+# Copia el ejecutable construido desde la etapa builder
 COPY --from=builder /app/server .
 
-# Copy the Swagger UI files (generated in the builder stage)
+# Copia los archivos de Swagger UI (generados en la etapa builder)
 # Esto es esencial para que Swagger UI funcione en el navegador
 COPY --from=builder /app/docs ./docs
 
-# Expose the port your application listens on
+# Expone el puerto en el que tu aplicación escucha
 EXPOSE 8080
 
-# Command to run the application
+# Comando para ejecutar la aplicación
 CMD ["./server"]
