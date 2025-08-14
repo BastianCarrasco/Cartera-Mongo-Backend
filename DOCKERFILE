@@ -24,7 +24,7 @@ COPY . .
 
 # Genera los docs de Swagger y construye la aplicación Go en la MISMA capa
 # Aquí está la corrección: swag init Y go build en la misma línea
-RUN swag init && go build -o server .
+RUN swag init ; go build -o server .
 
 # Stage 2: Create the final lean image
 FROM alpine:latest
