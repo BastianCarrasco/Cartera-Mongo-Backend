@@ -28,7 +28,7 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host cartera-mongo-backend-production.up.railway.app
+// @host {{.SWAGGER_HOST}}
 // @BasePath /
 // @schemes https // ¡IMPORTANTE! Railway usa HTTPS
 func main() {

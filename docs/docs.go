@@ -341,7 +341,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "cartera-mongo-backend-production.up.railway.app",
+	Host:             "{{.SWAGGER_HOST}}",
 	BasePath:         "/",
 	Schemes:          []string{"https", "//", "¡IMPORTANTE!", "Railway", "usa", "HTTPS"},
 	Title:            "Cartera-Mongo-Backend Project API",

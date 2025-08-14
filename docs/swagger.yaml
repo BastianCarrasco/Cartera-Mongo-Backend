@@ -58,7 +58,7 @@ definitions:
       nombre:
         type: string
     type: object
-host: cartera-mongo-backend-production.up.railway.app
+host: '{{.SWAGGER_HOST}}'
 info:
   contact:
     email: support@swagger.io
