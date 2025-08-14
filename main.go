@@ -16,35 +16,48 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// ... (tus anotaciones de Swagger)
+// @title Cartera-Mongo-Backend Project API
+// @version 1.0
+// @description This is a sample server for a Project API with Go and MongoDB, named Cartera-Mongo-Backend.
+// @termsOfService http://swagger.io/terms/
 
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:8080
+// @BasePath /  <-- ¡CAMBIO AQUÍ! La base de la API es la raíz
+// @schemes http
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("Advertencia: No se encontró archivo .env en main.go o error al cargarlo.")
+		log.Println("Advertencia: No se pudo cargar el archivo .env (posiblemente esperado en entorno de despliegue). Asumiendo que las variables de entorno están configuradas.")
 	}
 
-	// 1. Conectar a la base de datos MongoDB
 	config.ConnectDB()
 
-	// 2. Obtener la colección de MongoDB *después* de que el cliente DB esté conectado
-	//    y luego inyectarla en los manejadores.
 	projectCol := config.GetCollection()
 	handlers.SetProjectCollection(projectCol)
 
-	// Inicializar el router
 	r := mux.NewRouter()
 
-	apiV1 := r.PathPrefix("/api/v1").Subrouter()
+	// ❌ ELIMINAMOS esta línea: apiV1 := r.PathPrefix("/api/v1").Subrouter()
 
-	// Rutas para Proyectos
-	apiV1.HandleFunc("/projects", handlers.CreateProject).Methods("POST")
-	apiV1.HandleFunc("/projects", handlers.GetProjects).Methods("GET")
-	apiV1.HandleFunc("/projects/{id}", handlers.GetProjectByID).Methods("GET")
-	apiV1.HandleFunc("/projects/{id}", handlers.UpdateProject).Methods("PUT")
-	apiV1.HandleFunc("/projects/{id}", handlers.DeleteProject).Methods("DELETE")
+	// ✅ Y AÑADIMOS las rutas directamente al router principal 'r'
+	// O puedes crear un subrouter sin prefijo para mantener la organización si lo deseas:
+	// mainRouter := r.PathPrefix("/").Subrouter() // Esto es opcional, si quieres un subrouter para todas las rutas
 
-	// Ruta para la documentación de Swagger
+	// Rutas para Proyectos - Ahora directamente bajo la raíz
+	r.HandleFunc("/projects", handlers.CreateProject).Methods("POST")
+	r.HandleFunc("/projects", handlers.GetProjects).Methods("GET")
+	r.HandleFunc("/projects/{id}", handlers.GetProjectByID).Methods("GET")
+	r.HandleFunc("/projects/{id}", handlers.UpdateProject).Methods("PUT")
+	r.HandleFunc("/projects/{id}", handlers.DeleteProject).Methods("DELETE")
+
+	// Ruta para la documentación de Swagger (sigue igual, no tiene prefijo /api/v1)
 	r.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
 	port := os.Getenv("PORT")
