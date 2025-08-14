@@ -24,7 +24,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/projects": {
+        "/funciones/data": {
             "get": {
                 "description": "Retrieve a list of all projects",
                 "produces": [
@@ -51,7 +51,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            },
+            }
+        },
+        "/projects": {
             "post": {
                 "description": "Add a new project to the database",
                 "consumes": [
@@ -246,7 +248,19 @@ const docTemplate = `{
     },
     "definitions": {
         "models.Academic": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "a_materno": {
+                    "type": "string"
+                },
+                "a_paterno": {
+                    "type": "string"
+                },
+                "nombre": {
+                    "description": "¡Aquí están los campos que faltaban!",
+                    "type": "string"
+                }
+            }
         },
         "models.Project": {
             "type": "object",
@@ -279,14 +293,12 @@ const docTemplate = `{
                     }
                 },
                 "fecha_postulacion": {
-                    "description": "Usar time.Time para fechas ISO",
                     "type": "string"
                 },
                 "id": {
                     "type": "string"
                 },
                 "id_kth": {
-                    "description": "Usar puntero para manejar 'null'",
                     "type": "string"
                 },
                 "inst_conv": {
@@ -310,7 +322,18 @@ const docTemplate = `{
             }
         },
         "models.Student": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "a_materno": {
+                    "type": "string"
+                },
+                "a_paterno": {
+                    "type": "string"
+                },
+                "nombre": {
+                    "type": "string"
+                }
+            }
         }
     }
 }`
@@ -319,7 +342,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8080",
-	BasePath:         "/api/v1",
+	BasePath:         "/",
 	Schemes:          []string{"http"},
 	Title:            "Cartera-Mongo-Backend Project API",
 	Description:      "This is a sample server for a Project API with Go and MongoDB, named Cartera-Mongo-Backend.",

@@ -73,7 +73,7 @@ func CreateProject(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Success 200 {array} models.Project
 // @Failure 500 {string} string "Internal Server Error"
-// @Router /projects [get]
+// @Router /funciones/data [get]
 func GetProjects(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var projects []models.Project

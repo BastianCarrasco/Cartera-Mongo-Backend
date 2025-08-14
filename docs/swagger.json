@@ -19,9 +19,9 @@
         "version": "1.0"
     },
     "host": "localhost:8080",
-    "basePath": "/api/v1",
+    "basePath": "/",
     "paths": {
-        "/projects": {
+        "/funciones/data": {
             "get": {
                 "description": "Retrieve a list of all projects",
                 "produces": [
@@ -48,7 +48,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/projects": {
             "post": {
                 "description": "Add a new project to the database",
                 "consumes": [
@@ -243,7 +245,19 @@
     },
     "definitions": {
         "models.Academic": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "a_materno": {
+                    "type": "string"
+                },
+                "a_paterno": {
+                    "type": "string"
+                },
+                "nombre": {
+                    "description": "¡Aquí están los campos que faltaban!",
+                    "type": "string"
+                }
+            }
         },
         "models.Project": {
             "type": "object",
@@ -276,14 +290,12 @@
                     }
                 },
                 "fecha_postulacion": {
-                    "description": "Usar time.Time para fechas ISO",
                     "type": "string"
                 },
                 "id": {
                     "type": "string"
                 },
                 "id_kth": {
-                    "description": "Usar puntero para manejar 'null'",
                     "type": "string"
                 },
                 "inst_conv": {
@@ -307,7 +319,18 @@
             }
         },
         "models.Student": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "a_materno": {
+                    "type": "string"
+                },
+                "a_paterno": {
+                    "type": "string"
+                },
+                "nombre": {
+                    "type": "string"
+                }
+            }
         }
     }
 }

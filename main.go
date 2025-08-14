@@ -29,7 +29,7 @@ import (
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host localhost:8080
-// @BasePath /  <-- ¡CAMBIO AQUÍ! La base de la API es la raíz
+// @BasePath /
 // @schemes http
 func main() {
 	err := godotenv.Load()
@@ -52,7 +52,7 @@ func main() {
 
 	// Rutas para Proyectos - Ahora directamente bajo la raíz
 	r.HandleFunc("/projects", handlers.CreateProject).Methods("POST")
-	r.HandleFunc("/projects", handlers.GetProjects).Methods("GET")
+	r.HandleFunc("/funciones/data", handlers.GetProjects).Methods("GET")
 	r.HandleFunc("/projects/{id}", handlers.GetProjectByID).Methods("GET")
 	r.HandleFunc("/projects/{id}", handlers.UpdateProject).Methods("PUT")
 	r.HandleFunc("/projects/{id}", handlers.DeleteProject).Methods("DELETE")

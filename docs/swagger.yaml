@@ -1,6 +1,14 @@
-basePath: /api/v1
+basePath: /
 definitions:
   models.Academic:
+    properties:
+      a_materno:
+        type: string
+      a_paterno:
+        type: string
+      nombre:
+        description: ¡Aquí están los campos que faltaban!
+        type: string
     type: object
   models.Project:
     properties:
@@ -23,12 +31,10 @@ definitions:
           $ref: '#/definitions/models.Student'
         type: array
       fecha_postulacion:
-        description: Usar time.Time para fechas ISO
         type: string
       id:
         type: string
       id_kth:
-        description: Usar puntero para manejar 'null'
         type: string
       inst_conv:
         type: string
@@ -44,6 +50,13 @@ definitions:
         type: string
     type: object
   models.Student:
+    properties:
+      a_materno:
+        type: string
+      a_paterno:
+        type: string
+      nombre:
+        type: string
     type: object
 host: localhost:8080
 info:
@@ -60,7 +73,7 @@ info:
   title: Cartera-Mongo-Backend Project API
   version: "1.0"
 paths:
-  /projects:
+  /funciones/data:
     get:
       description: Retrieve a list of all projects
       produces:
@@ -79,6 +92,7 @@ paths:
       summary: Get all projects
       tags:
       - Projects
+  /projects:
     post:
       consumes:
       - application/json

@@ -8,20 +8,20 @@ import (
 
 // Academic representa un académico asociado a un proyecto.
 type Academic struct {
-	// Puedes añadir los campos específicos que tenga un académico
-	// dentro de este objeto, por ejemplo:
-	// Name  string `json:"name" bson:"name"`
-	// Email string `json:"email" bson:"email"`
-	// Otros campos...
+	// ¡Aquí están los campos que faltaban!
+	Nombre    string `json:"nombre" bson:"nombre"`
+	APaterno  string `json:"a_paterno" bson:"a_paterno"`
+	AMaterno  string `json:"a_materno" bson:"a_materno"`
+	// Si hay más campos en tus académicos en la BD, añádelos aquí.
+	// Por ejemplo:
+	// Email string `json:"email,omitempty" bson:"email,omitempty"`
 }
 
 // Student representa un estudiante asociado a un proyecto.
 type Student struct {
-	// Puedes añadir los campos específicos que tenga un estudiante
-	// dentro de este objeto, por ejemplo:
-	// Name  string `json:"name" bson:"name"`
-	// Major string `json:"major" bson:"major"`
-	// Otros campos...
+	Nombre    string `json:"nombre" bson:"nombre"`
+	APaterno  string `json:"a_paterno" bson:"a_paterno"`
+	AMaterno  string `json:"a_materno" bson:"a_materno"`
 }
 
 // Project representa un proyecto en la base de datos MongoDB.
@@ -31,7 +31,7 @@ type Project struct {
 	Academicos       []Academic         `json:"academicos" bson:"academicos"`
 	Estudiantes      []Student          `json:"estudiantes" bson:"estudiantes"`
 	Monto            float64            `json:"monto" bson:"monto"`
-	FechaPostulacion time.Time          `json:"fecha_postulacion" bson:"fecha_postulacion"` // Usar time.Time para fechas ISO
+	FechaPostulacion time.Time          `json:"fecha_postulacion" bson:"fecha_postulacion"`
 	Unidad           string             `json:"unidad" bson:"unidad"`
 	Tematica         string             `json:"tematica" bson:"tematica"`
 	Estatus          string             `json:"estatus" bson:"estatus"`
@@ -40,6 +40,6 @@ type Project struct {
 	InstConv         string             `json:"inst_conv" bson:"inst_conv"`
 	DetalleApoyo     string             `json:"detalle_apoyo" bson:"detalle_apoyo"`
 	Apoyo            string             `json:"apoyo" bson:"apoyo"`
-	IdKth            *string            `json:"id_kth" bson:"id_kth"`             // Usar puntero para manejar 'null'
+	IdKth            *string            `json:"id_kth" bson:"id_kth"`
 	Comentarios      string             `json:"comentarios" bson:"comentarios"`
 }
