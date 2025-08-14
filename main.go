@@ -30,7 +30,7 @@ import (
 
 // @host {{.SWAGGER_HOST}}
 // @BasePath /
-// @schemes https // ¡IMPORTANTE! Railway usa HTTPS
+// @schemes https
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -44,35 +44,20 @@ func main() {
 
 	r := mux.NewRouter()
 
-	// Rutas para Proyectos - Ahora directamente bajo la raíz
 	r.HandleFunc("/projects", handlers.CreateProject).Methods("POST")
 	r.HandleFunc("/funciones/data", handlers.GetProjects).Methods("GET")
 	r.HandleFunc("/projects/{id}", handlers.GetProjectByID).Methods("GET")
 	r.HandleFunc("/projects/{id}", handlers.UpdateProject).Methods("PUT")
 	r.HandleFunc("/projects/{id}", handlers.DeleteProject).Methods("DELETE")
 
-	// Ruta para la documentación de Swagger (sigue igual, no tiene prefijo /api/v1)
 	r.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080" // Valor por defecto si PORT no está seteado (para desarrollo local)
+		port = "8080"
 	}
 	listenAddr := ":" + port
 
-	// --- CAMBIOS AQUI ---
-	// Usamos la URL de Railway para los logs informativos
-	// Puedes obtenerla de una variable de entorno si prefieres flexibilidad
-	// o hardcodearla aquí como ya hiciste en los comentarios de Swagger.
-
-	// Si quieres que el log sea dinámico, podrías obtenerla de una variable de entorno:
-	// railwayHost := os.Getenv("SWAGGER_HOST") // O cualquier otra variable que uses para la URL base
-	// if railwayHost == "" {
-	//    railwayHost = "cartera-mongo-backend-production.up.railway.app" // Fallback si la variable no existe
-	// }
-
-	// Para este caso, siguiendo tu lógica de hardcodeo en los docs,
-	// hardcodeamos también en el log para consistencia.
 	appHost := "cartera-mongo-backend-production.up.railway.app"
 
 	log.Printf("Server running on https://%s (listening on port %s)", appHost, port)
