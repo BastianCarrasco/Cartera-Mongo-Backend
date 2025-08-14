@@ -342,7 +342,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "cartera-mongo-backend-production.up.railway.app",
-	BasePath:         "/  // Ya corregido, mantener así",
+	BasePath:         "/",
 	Schemes:          []string{"https", "//", "¡IMPORTANTE!", "Railway", "usa", "HTTPS"},
 	Title:            "Cartera-Mongo-Backend Project API",
 	Description:      "This is a sample server for a Project API with Go and MongoDB, named Cartera-Mongo-Backend.",

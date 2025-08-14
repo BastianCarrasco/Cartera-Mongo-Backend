@@ -24,7 +24,7 @@
         "version": "1.0"
     },
     "host": "cartera-mongo-backend-production.up.railway.app",
-    "basePath": "/  // Ya corregido, mantener así",
+    "basePath": "/",
     "paths": {
         "/funciones/data": {
             "get": {

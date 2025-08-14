@@ -1,4 +1,4 @@
-basePath: /  // Ya corregido, mantener así
+basePath: /
 definitions:
   models.Academic:
     properties:
