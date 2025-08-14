@@ -20,17 +20,14 @@ import (
 // @version 1.0
 // @description This is a sample server for a Project API with Go and MongoDB, named Cartera-Mongo-Backend.
 // @termsOfService http://swagger.io/terms/
-
 // @contact.name API Support
 // @contact.url http://www.swagger.io/support
 // @contact.email support@swagger.io
-
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-
-// @host cartera-mongo-backend-production.up.railway.app
+// @host %SWAGGER_HOST%
 // @BasePath /
-// @schemes https // ¡IMPORTANTE! Railway usa HTTPS
+// @schemes https
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -44,20 +41,12 @@ func main() {
 
 	r := mux.NewRouter()
 
-	// ❌ ELIMINAMOS esta línea: apiV1 := r.PathPrefix("/api/v1").Subrouter()
-
-	// ✅ Y AÑADIMOS las rutas directamente al router principal 'r'
-	// O puedes crear un subrouter sin prefijo para mantener la organización si lo deseas:
-	// mainRouter := r.PathPrefix("/").Subrouter() // Esto es opcional, si quieres un subrouter para todas las rutas
-
-	// Rutas para Proyectos - Ahora directamente bajo la raíz
 	r.HandleFunc("/projects", handlers.CreateProject).Methods("POST")
 	r.HandleFunc("/funciones/data", handlers.GetProjects).Methods("GET")
 	r.HandleFunc("/projects/{id}", handlers.GetProjectByID).Methods("GET")
 	r.HandleFunc("/projects/{id}", handlers.UpdateProject).Methods("PUT")
 	r.HandleFunc("/projects/{id}", handlers.DeleteProject).Methods("DELETE")
 
-	// Ruta para la documentación de Swagger (sigue igual, no tiene prefijo /api/v1)
 	r.PathPrefix("/swagger/").Handler(httpSwagger.WrapHandler)
 
 	port := os.Getenv("PORT")
